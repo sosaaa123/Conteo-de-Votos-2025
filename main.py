@@ -1,7 +1,8 @@
 import datetime
 from datetime import timedelta, datetime
+import uuid
 from dotenv import load_dotenv
-from fastapi import FastAPI, Response, Request
+from fastapi import Cookie, FastAPI, Response, Request
 import os
 from conexion import Conexion
 from rep import*
@@ -16,6 +17,9 @@ dict = verStands(conexion)
 #print(dict)
 #stand = buscarStand(conexion, 1)
 #print(stand)
+
+votar(conexion,3)
+votar(conexion, 3)
 
 app = FastAPI()
 
@@ -63,25 +67,29 @@ async def verStand(stand_id):
         return {"Error": str(e)}
 
 @app.get("/stands/{stand_id}/votar")
-async def votar(stand_id, response:Response, request:Request):
+async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
     try:
-        ya_voto = request.cookies.get('ya_voto')
         exp = datetime.now()
         exp1 = exp.replace(hour=8, minute=0, second=0, microsecond=0) + timedelta(days=1)
 
-        if(ya_voto):
+        if(votante_id):
             return({
             "estado": False,
             "mensaje": "Ya voto, no puede volver a votar por hoy"
             })
-        
-        else:
-            votar(conexion, stand_id)
-            response.set_cookie(key="ya_voto", value=True, expires=60)
-            return({
+        response.set_cookie(
+            key="votante_id",
+            value=str(uuid.uuid4()),
+            httponly=True,
+            max_age=60,
+            path="/"
+        )
+        votar(conexion, stand_id)
+
+        return({
             "estado": True,
-            "mensaje": "Voto sumado"
-            })
+            "mensaje": "Se ha completado un voto"
+        })
     except Exception as e:
         return {"Error": str(e)}
     
