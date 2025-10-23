@@ -13,8 +13,8 @@ conexion = Conexion(var)
 
 dict = verStands(conexion)
 #print(dict)
-stand = buscarStand(conexion, 1)
-print(stand)
+#stand = buscarStand(conexion, 1)
+#print(stand)
 
 app = FastAPI()
 
