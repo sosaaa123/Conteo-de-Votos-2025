@@ -6,6 +6,7 @@ import os
 from conexion import Conexion
 from rep import*
 from stand import Stand
+from fastapi.middleware.cors import CORSMiddleware
 load_dotenv()
 var = os.getenv("DATABASE_URL")
 
@@ -17,6 +18,14 @@ dict = verStands(conexion)
 #print(stand)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = ["*"], #los origenes que tengo permitidos en la lista
+    allow_methods = ["*"], # permito consultar por todos los metodos (get, post, put, delete)
+    allow_credentials = True, #no necesito credenciales, lo pongo para no olvidarme
+    allow_headers = ["*"],#permite todos los headers ¿que es un header?
+)
 
 primer_stand = Stand(nombre="Flores", 
                      descripcion="Stand de Flores...",
@@ -53,7 +62,7 @@ async def verStand(stand_id):
     except Exception as e:
         return {"Error": str(e)}
 
-@app.post("/stands/{stand_id}/votar")
+@app.get("/stands/{stand_id}/votar")
 async def votar(stand_id, response:Response, request:Request):
     try:
         ya_voto = request.cookies.get('ya_voto')
@@ -67,8 +76,8 @@ async def votar(stand_id, response:Response, request:Request):
             })
         
         else:
-            response.set_cookie(key="ya_voto", value=True, expires=exp1)
             votar(conexion, stand_id)
+            response.set_cookie(key="ya_voto", value=True, expires=60)
             return({
             "estado": True,
             "mensaje": "Voto sumado"
