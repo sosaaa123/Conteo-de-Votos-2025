@@ -25,10 +25,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["*"], #los origenes que tengo permitidos en la lista
-    allow_methods = ["http://localhost:5173"], # permito consultar por todos los metodos (get, post, put, delete)
-    allow_credentials = True, #no necesito credenciales, lo pongo para no olvidarme
-    allow_headers = ["*"],#permite todos los headers ¿que es un header?
+    allow_origins = ["*"],
+    allow_methods = ["http://localhost:5173"], 
+    allow_credentials = True, 
+    allow_headers = ["*"],
 )
 
 """primer_stand = Stand(nombre="Fweesdds", 
