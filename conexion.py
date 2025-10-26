@@ -3,7 +3,9 @@ class Conexion:
     def __init__(self, dsn):
         self.dsn = dsn
         self.connection = psycopg2.connect(self.dsn)
-        self.cursor = self.connection.cursor()
+
+    def cursor(self):
+        return self.connection.cursor()
 
     def commit(self):
         self.connection.commit()
