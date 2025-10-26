@@ -32,7 +32,7 @@ def verStands(conexion:Conexion):
                             curso=r[3],
                             orientacion=r[4],
                             profesor=r[5],
-                            votos=res[6])
+                            votos=r[6])
                 
                 stands.append(nStand)
             return stands
