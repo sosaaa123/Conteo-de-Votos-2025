@@ -18,8 +18,7 @@ dict = verStands(conexion)
 #stand = buscarStand(conexion, 1)
 #print(stand)
 
-votar(conexion,3)
-votar(conexion, 3)
+
 
 app = FastAPI()
 
@@ -88,7 +87,7 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
             max_age=60,
             path="/"
         )
-        votar(conexion, stand_id)
+        votarStand(conexion, stand_id)
 
         return({
             "estado": True,

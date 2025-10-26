@@ -2,7 +2,7 @@ from conexion import Conexion
 from stand import Stand
 
 
-def votar(conexion:Conexion, id_stand):
+def votarStand(conexion:Conexion, id_stand):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
