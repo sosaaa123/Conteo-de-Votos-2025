@@ -20,7 +20,7 @@ def verStands(conexion:Conexion):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor, votos FROM stands
+            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor FROM stands
             """)
 
             res = cursor.fetchall()

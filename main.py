@@ -26,12 +26,12 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins = ["*"], #los origenes que tengo permitidos en la lista
-    allow_methods = ["*"], # permito consultar por todos los metodos (get, post, put, delete)
+    allow_methods = ["http://localhost:5173"], # permito consultar por todos los metodos (get, post, put, delete)
     allow_credentials = True, #no necesito credenciales, lo pongo para no olvidarme
     allow_headers = ["*"],#permite todos los headers ¿que es un header?
 )
 
-primer_stand = Stand(nombre="Fweesdds", 
+"""primer_stand = Stand(nombre="Fweesdds", 
                      descripcion="tweeasasnd de Fslores...",
                      curso="4to 5ta", 
                      orientacion="Cicsdaassico",
@@ -44,7 +44,7 @@ print(dict)
 
 st = buscarStand(conexion, 1)
 print(st)
-
+"""
 
 @app.get("/")
 async def main():
