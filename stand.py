@@ -5,9 +5,7 @@ class Stand(BaseModel):
     id_stand: Optional[int]=None
     nombre:str
     descripcion:str
-    # "año" 1ro, 2do, etc
-    year:int
-    division:int
+    curso:str
     orientacion:str
     profesor:str
     votos:Optional[int]=None

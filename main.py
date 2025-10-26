@@ -31,12 +31,11 @@ app.add_middleware(
     allow_headers = ["*"],#permite todos los headers ¿que es un header?
 )
 
-"""primer_stand = Stand(nombre="Floassdds", 
-                     descripcion="Stasasnd de Fslores...",
-                     year=2, 
-                     division=2, 
-                     orientacion="Ciclsasdaasdo Basico",
-                     profesor="Yoa")
+primer_stand = Stand(nombre="Fweesdds", 
+                     descripcion="tweeasasnd de Fslores...",
+                     curso="4to 5ta", 
+                     orientacion="Cicsdaassico",
+                     profesor="oa")
 
 cargarStand(conexion, primer_stand)
 
@@ -44,7 +43,8 @@ dict = verStands(conexion)
 print(dict)
 
 st = buscarStand(conexion, 1)
-print(st)"""
+print(st)
+
 
 @app.get("/")
 async def main():

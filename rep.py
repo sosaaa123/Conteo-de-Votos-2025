@@ -20,7 +20,7 @@ def verStands(conexion:Conexion):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-            SELECT id_stand, nombre, descripcion, año, division, orientacion, profesor, votos FROM stands
+            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor, votos FROM stands
             """)
 
             res = cursor.fetchall()
@@ -29,11 +29,10 @@ def verStands(conexion:Conexion):
                 nStand = Stand(id_stand=r[0],
                             nombre=r[1], 
                             descripcion=r[2], 
-                            year=r[3], 
-                            division=r[4], 
-                            orientacion=r[5],
-                            profesor=r[6],
-                            votos=r[7])
+                            curso=r[3],
+                            orientacion=r[4],
+                            profesor=r[5],
+                            votos=r[6])
                 
                 stands.append(nStand)
             return stands
@@ -45,7 +44,7 @@ def buscarStand(conexion:Conexion, id_stand):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-            SELECT id_stand, nombre, descripcion, año, division, orientacion, profesor, votos
+            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor
             FROM stands WHERE id_stand = (%s)
             """, (id_stand,))
             res = cursor.fetchone()
@@ -54,11 +53,9 @@ def buscarStand(conexion:Conexion, id_stand):
                     id_stand=res[0],
                     nombre=res[1],
                     descripcion=res[2],
-                    year=res[3],
-                    division=res[4],
-                    orientacion=res[5],
-                    profesor=res[6],
-                    votos=res[7]
+                    curso=res[3],
+                    orientacion=res[4],
+                    profesor=res[5]
                 )
 
                 return stand
@@ -73,9 +70,9 @@ def cargarStand(conexion:Conexion, stand:Stand):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-            INSERT INTO stands(nombre, descripcion, año, division, orientacion, profesor)
-            VALUES(%s,%s,%s,%s,%s,%s)""", 
-            (stand.nombre, stand.descripcion, stand.year, stand.division, stand.orientacion, stand.profesor))
+            INSERT INTO stands(nombre, descripcion, curso, orientacion, profesor)
+            VALUES(%s,%s,%s,%s,%s)""", 
+            (stand.nombre, stand.descripcion, stand.curso, stand.orientacion, stand.profesor))
 
             conexion.commit()
     except Exception as e:
