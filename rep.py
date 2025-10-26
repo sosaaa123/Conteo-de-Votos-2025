@@ -20,7 +20,7 @@ def verStands(conexion:Conexion):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor FROM stands
+            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor, votos FROM stands
             """)
 
             res = cursor.fetchall()
@@ -31,7 +31,8 @@ def verStands(conexion:Conexion):
                             descripcion=r[2], 
                             curso=r[3],
                             orientacion=r[4],
-                            profesor=r[5])
+                            profesor=r[5],
+                            votos=res[6])
                 
                 stands.append(nStand)
             return stands
