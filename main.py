@@ -80,12 +80,15 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
             "estado": False,
             "mensaje": "Ya voto, no puede volver a votar por hoy"
             })
+
         response.set_cookie(
             key="votante_id",
             value=str(uuid.uuid4()),
             httponly=True,
             max_age=60,
-            path="/"
+            path="/",
+            samesite="none",
+            secure=True       
         )
         votarStand(conexion, stand_id)
 
