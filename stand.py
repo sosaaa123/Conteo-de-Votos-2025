@@ -8,6 +8,8 @@ class Stand(BaseModel):
     curso:str
     orientacion:str
     profesor:str
+    materia:str
     votos:Optional[int]=None
+    
 
 

@@ -20,7 +20,7 @@ def verStands(conexion:Conexion):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor, votos FROM stands
+            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor, materia ,votos FROM stands
             """)
 
             res = cursor.fetchall()
@@ -32,7 +32,8 @@ def verStands(conexion:Conexion):
                             curso=r[3],
                             orientacion=r[4],
                             profesor=r[5],
-                            votos=r[6])
+                            materia=r[6],
+                            votos=r[7])
                 
                 stands.append(nStand)
             return stands
@@ -44,7 +45,7 @@ def buscarStand(conexion:Conexion, id_stand):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor
+            SELECT id_stand, nombre, descripcion, curso, orientacion, profesor, materia
             FROM stands WHERE id_stand = (%s)
             """, (id_stand,))
             res = cursor.fetchone()
@@ -55,7 +56,8 @@ def buscarStand(conexion:Conexion, id_stand):
                     descripcion=res[2],
                     curso=res[3],
                     orientacion=res[4],
-                    profesor=res[5]
+                    profesor=res[5],
+                    materia=res[6]
                 )
 
                 return stand
@@ -70,9 +72,9 @@ def cargarStand(conexion:Conexion, stand:Stand):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-            INSERT INTO stands(nombre, descripcion, curso, orientacion, profesor)
-            VALUES(%s,%s,%s,%s,%s)""", 
-            (stand.nombre, stand.descripcion, stand.curso, stand.orientacion, stand.profesor))
+            INSERT INTO stands(nombre, descripcion, curso, orientacion, profesor, materia)
+            VALUES(%s,%s,%s,%s,%s, %s)""", 
+            (stand.nombre, stand.descripcion, stand.curso, stand.orientacion, stand.profesor, stand.materia))
 
             conexion.commit()
     except Exception as e:

@@ -18,6 +18,8 @@ dict = verStands(conexion)
 #stand = buscarStand(conexion, 1)
 #print(stand)
 
+cur = conexion.cursor()
+
 
 
 app = FastAPI()
@@ -44,6 +46,9 @@ print(dict)
 st = buscarStand(conexion, 1)
 print(st)
 """
+
+
+
 
 @app.get("/")
 async def main():
