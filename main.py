@@ -1,5 +1,5 @@
 import datetime
-from datetime import timedelta, datetime
+from datetime import time, timedelta, datetime
 import uuid
 from dotenv import load_dotenv
 from fastapi import Cookie, FastAPI, Response, Request
@@ -26,7 +26,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["http://localhost:5173"],
+    allow_origins = ["http://localhost:5173", "https://front-votos.vercel.app/"],
     allow_methods = ["*"],
     allow_credentials = True, 
     allow_headers = ["*"],
@@ -37,15 +37,22 @@ app.add_middleware(
                      curso="4to 5ta", 
                      orientacion="Cicsdaassico",
                      profesor="oa")
-
-cargarStand(conexion, primer_stand)
-
-dict = verStands(conexion)
-print(dict)
-
-st = buscarStand(conexion, 1)
-print(st)
 """
+
+def horarios(fecha: datetime):
+    hora_actual = fecha.time()
+
+    horarios = [
+        (time(8, 0), time(12, 0)),
+        (time(13, 0), time(17, 30)),
+        (time(17, 40), time(21, 0)),
+    ]
+
+    for inicio, fin in horarios:
+        if inicio <= hora_actual <= fin:
+            return True
+
+    return False
 
 
 
@@ -79,6 +86,11 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
     try:
         exp = datetime.now()
         exp1 = exp.replace(hour=8, minute=0, second=0, microsecond=0) + timedelta(days=1)
+        if not (horarios(exp)):
+            return({
+                "estado": False,
+                "mensaje": "No se puede votar, fuera de horario"
+            })
 
         if(votante_id):
             return({
