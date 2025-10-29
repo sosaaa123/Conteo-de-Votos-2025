@@ -20,13 +20,13 @@ dict = verStands(conexion)
 
 cur = conexion.cursor()
 
-
+origenes = ["http://localhost:5173", "https://front-votos.vercel.app/"]
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["http://localhost:5173", "https://front-votos.vercel.app/"],
+    allow_origins = [origenes],
     allow_methods = ["*"],
     allow_credentials = True, 
     allow_headers = ["*"],
