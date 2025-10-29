@@ -26,7 +26,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = [origenes],
+    allow_origins = ["https://front-votos.vercel.app/"],
     allow_methods = ["*"],
     allow_credentials = True, 
     allow_headers = ["*"],
