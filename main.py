@@ -20,7 +20,7 @@ dict = verStands(conexion)
 
 cur = conexion.cursor()
 
-origenes = ["http://localhost:5173", "https://front-votos.vercel.app/"]
+origenes = ["http://localhost:5173", "https://front-votos.vercel.app"]
 
 app = FastAPI()
 
