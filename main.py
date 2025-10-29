@@ -26,7 +26,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["https://front-votos.vercel.app/"],
+    allow_origins = origenes,
     allow_methods = ["*"],
     allow_credentials = True, 
     allow_headers = ["*"],
@@ -54,7 +54,67 @@ def horarios(fecha: datetime):
 
     return False
 
+stands_prueba = [
+    Stand(
+        nombre="Robótica Educativa",
+        descripcion="Demostración de robots programados por estudiantes",
+        curso="4to Año",
+        orientacion="Informática",
+        profesor="María González",
+        materia="Tecnología"
+    ),
+    Stand(
+        nombre="Química Divertida",
+        descripcion="Experimentos químicos interactivos y seguros",
+        curso="5to Año",
+        orientacion="Ciencias Naturales",
+        profesor="Carlos Rodríguez",
+        materia="Química"
+    ),
+    Stand(
+        nombre="Historia Viva",
+        descripcion="Recreación de eventos históricos con maquetas",
+        curso="3ro Año",
+        orientacion="Ciencias Sociales",
+        profesor="Ana Martínez",
+        materia="Historia"
+    ),
+    Stand(
+        nombre="Matemática Recreativa",
+        descripcion="Juegos y acertijos matemáticos para todas las edades",
+        curso="2do Año",
+        orientacion="Economía",
+        profesor="Luis Fernández",
+        materia="Matemática"
+    ),
+    Stand(
+        nombre="Arte Digital",
+        descripcion="Exposición de obras creadas con herramientas digitales",
+        curso="6to Año",
+        orientacion="Arte",
+        profesor="Laura Díaz",
+        materia="Educación Artística"
+    ),
+    Stand(
+        nombre="Biología Molecular",
+        descripcion="Demostraciones de ADN y células con microscopios",
+        curso="5to Año",
+        orientacion="Biología",
+        profesor="Roberto Silva",
+        materia="Biología"
+    ),
+    Stand(
+        nombre="Programación de Videojuegos",
+        descripcion="Juegos simples creados por estudiantes en Python",
+        curso="4to Año",
+        orientacion="Informática",
+        profesor="Patricia López",
+        materia="Programación"
+    )]
 
+
+for stand in stands_prueba:
+    cargarStand(conexion, stand)
 
 
 @app.get("/")
