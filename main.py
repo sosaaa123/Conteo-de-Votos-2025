@@ -98,7 +98,8 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
         if(votante_id):
             return({
             "estado": False,
-            "mensaje": "Usted ya ha gastado su voto diario, vuelva mañana."
+            "mensaje": "Usted ya ha gastado su voto diario, vuelva mañana.",
+            "ya_voto": True
             })
 
         response.set_cookie(
