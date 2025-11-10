@@ -44,9 +44,6 @@ primer_stand = Stand(nombre="Impresion 3D",
 
 segundo_stand = Stand
 
-cargarStand(conexion, primer_stand)
-
-
 def horarios(fecha: datetime):
     fecha = arg.localize(fecha)
     hora_actual = fecha.time()
@@ -109,7 +106,7 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
         if(votante_id):
             return({
             "estado": False,
-            "mensaje": f"Usted ya ha gastado su voto diario, vuelva mañana {f"{dia}/{mes}"}.",
+            "mensaje": f"Ya uso su voto diario, vuelva mañana {f"{dia}/{mes}"}.",
             "ya_voto": True
             })
 
