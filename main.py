@@ -8,6 +8,7 @@ from conexion import Conexion
 from rep import*
 from stand import Stand
 from fastapi.middleware.cors import CORSMiddleware
+import pytz
 load_dotenv()
 var = os.getenv("DATABASE_URL")
 
@@ -17,6 +18,8 @@ dict = verStands(conexion)
 #print(dict)
 #stand = buscarStand(conexion, 1)
 #print(stand)
+
+arg = pytz.timezone('America/Argentina/Buenos_Aires')
 
 cur = conexion.cursor()
 
@@ -45,6 +48,7 @@ cargarStand(conexion, primer_stand)
 
 
 def horarios(fecha: datetime):
+    fecha = arg.localize(fecha)
     hora_actual = fecha.time()
 
     horarios = [
@@ -97,16 +101,19 @@ async def verStand(stand_id):
 @app.get("/stands/{stand_id}/votar")
 async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
     try:
-        exp = datetime.now()
+        exp = arg.localize(datetime.now())
         exp1 = exp.replace(hour=8, minute=0, second=0, microsecond=0) + timedelta(days=1)
+        dia = exp1.day
+        mes = exp1.month
 
         if(votante_id):
             return({
             "estado": False,
-            "mensaje": "Usted ya ha gastado su voto diario, vuelva mañana.",
+            "mensaje": f"Usted ya ha gastado su voto diario, vuelva mañana {f"{dia}/{mes}"}.",
             "ya_voto": True
             })
 
+        """expires=exp1"""  """y reemplazarlo por age"""
         response.set_cookie(
             key="votante_id",
             value=str(uuid.uuid4()),
@@ -120,8 +127,12 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
 
         return({
             "estado": True,
-            "mensaje": f"¡Muchas gracias por su voto {exp}!"
+            "mensaje": f"¡Muchas gracias por su voto!"
         })
     except Exception as e:
         return {"Error": str(e)}
     
+print(horarios(datetime.now()))
+exp = arg.localize(datetime.now())
+exp1 = exp.replace(hour=8, minute=0, second=0, microsecond=0) + timedelta(days=1)
+print(exp1)
