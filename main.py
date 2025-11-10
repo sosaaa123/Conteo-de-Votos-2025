@@ -32,12 +32,17 @@ app.add_middleware(
     allow_headers = ["*"],
 )
 
-"""primer_stand = Stand(nombre="Fweesdds", 
-                     descripcion="tweeasasnd de Fslores...",
-                     curso="4to 5ta", 
-                     orientacion="Cicsdaassico",
-                     profesor="oa")
-"""
+primer_stand = Stand(nombre="Impresion 3D", 
+                     descripcion="Se demostrara las habilidades en diseño 3D y codificacion G aprendidas en el año",
+                     curso="6º 2da", 
+                     orientacion="Electromecanica",
+                     profesor="Anderson, Facundo; Sein, Martín",
+                     materia="Electromecanica materia")
+
+segundo_stand = Stand
+
+cargarStand(conexion, primer_stand)
+
 
 def horarios(fecha: datetime):
     hora_actual = fecha.time()
@@ -115,7 +120,7 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
 
         return({
             "estado": True,
-            "mensaje": "¡Muchas gracias por su voto!"
+            "mensaje": f"¡Muchas gracias por su voto {exp}!"
         })
     except Exception as e:
         return {"Error": str(e)}

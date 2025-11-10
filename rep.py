@@ -21,6 +21,7 @@ def verStands(conexion:Conexion):
         with conexion.cursor() as cursor:
             cursor.execute("""
             SELECT id_stand, nombre, descripcion, curso, orientacion, profesor, materia ,votos FROM stands
+            ORDER BY id_stand ASC
             """)
 
             res = cursor.fetchall()
