@@ -102,7 +102,8 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
         exp1 = exp.replace(hour=8, minute=0, second=0, microsecond=0) + timedelta(days=1)
         dia = exp1.day
         mes = exp1.month
-
+        #meto esto pq expires me dejo re en banda
+        segundos_restantes = int((exp1 - exp).total_seconds())
         if(votante_id):
             return({
             "estado": False,
@@ -110,12 +111,11 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
             "ya_voto": True
             })
 
-        """"""  """y reemplazarlo por age"""
         response.set_cookie(
             key="votante_id",
             value=str(uuid.uuid4()),
             httponly=True,
-            expires=exp1,
+            age=segundos_restantes,
             path="/",
             samesite="none",
             secure=True       
@@ -129,7 +129,3 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
     except Exception as e:
         return {"Error": str(e)}
     
-print(horarios(datetime.now()))
-exp = arg.localize(datetime.now())
-exp1 = exp.replace(hour=8, minute=0, second=0, microsecond=0) + timedelta(days=1)
-print(exp1)
