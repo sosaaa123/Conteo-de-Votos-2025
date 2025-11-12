@@ -35,14 +35,7 @@ app.add_middleware(
     allow_headers = ["*"],
 )
 
-primer_stand = Stand(nombre="Impresion 3D", 
-                     descripcion="Se demostrara las habilidades en diseño 3D y codificacion G aprendidas en el año",
-                     curso="6º 2da", 
-                     orientacion="Electromecanica",
-                     profesor="Anderson, Facundo; Sein, Martín",
-                     materia="Electromecanica materia")
 
-segundo_stand = Stand
 
 def horarios(fecha: datetime):
     fecha = arg.localize(fecha)
@@ -102,6 +95,11 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
         exp1 = exp.replace(hour=8, minute=0, second=0, microsecond=0) + timedelta(days=1)
         dia = exp1.day
         mes = exp1.month
+        if not (horarios(exp)):
+            return({
+                "estado": False,
+                "mensaje": "No se puede votar, fuera de horario"
+            })
         #meto esto pq expires me dejo re en banda
         segundos_restantes = int((exp1 - exp).total_seconds())
         if(votante_id):
