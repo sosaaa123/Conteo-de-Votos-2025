@@ -98,7 +98,8 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
         if not (horarios(exp)):
             return({
                 "estado": False,
-                "mensaje": "No se puede votar, fuera de horario"
+                "mensaje": "No se puede votar, fuera de horario",
+                 "ya_voto": True
             })
         #meto esto pq expires me dejo re en banda
         segundos_restantes = int((exp1 - exp).total_seconds())
