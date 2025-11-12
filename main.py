@@ -38,7 +38,6 @@ app.add_middleware(
 
 
 def horarios(fecha: datetime):
-    fecha = arg.localize(fecha)
     hora_actual = fecha.time()
 
     horarios = [
@@ -99,7 +98,7 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
             return({
                 "estado": False,
                 "mensaje": "No se puede votar, fuera de horario",
-                 "ya_voto": True
+                 "fuera_de_horario": True
             })
         #meto esto pq expires me dejo re en banda
         segundos_restantes = int((exp1 - exp).total_seconds())
