@@ -23,7 +23,7 @@ arg = pytz.timezone('America/Argentina/Buenos_Aires')
 
 cur = conexion.cursor()
 
-origenes = ["http://localhost:5173", "https://front-votos.vercel.app", "https://dashboard-votos-skea.vercel.app/", "https://vercel.com/sso/access/request?next=%2Fsso-api%3Furl%3Dhttps%253A%252F%252Fdashboard-votos-skea-b1flrqv6l-benjaminnsanchezs-projects.vercel.app%252F%26nonce%3Dc2b6c32d970ce07b468c0e117fc13b0a729edd05c640bce333f55057d6cd44d3&url=dashboard-votos-skea-b1flrqv6l-benjaminnsanchezs-projects.vercel.app"]
+origenes = ["http://localhost:5173", "https://front-votos.vercel.app", "https://dashboard-votos-skea.vercel.app/"]
 
 app = FastAPI()
 
