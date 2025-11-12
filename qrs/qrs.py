@@ -2,20 +2,20 @@ import os
 from dotenv import load_dotenv
 import qrcode
 from conexion import Conexion
-"""url="https://front-votos.vercel.app/stand/94"
+url="https://front-votos.vercel.app/stand/148"
 img = qrcode.make(url)
-img.save("alicia_atraves_del_espejo_2do_5ta.png")"""
+img.save("pourtau.png")
 load_dotenv()
 var = os.getenv("DATABASE_URL")
 
-conexion = Conexion(var)
+"""conexion = Conexion(var)
 cursor = conexion.cursor()
 res = []
 try:
     with conexion.cursor() as cursor:
         
-        cursor.execute("""
-        SELECT id_stand, nombre, curso FROM stands""")
+        cursor.execute("
+        SELECT id_stand, nombre, curso FROM stands")
         res = cursor.fetchall()
         for i in res:
             url=f"https://front-votos.vercel.app/stand/{i[0]}"
@@ -29,7 +29,7 @@ try:
 except Exception as e:
     raise e
 
-
+"""
 
 #print(qrs(conexion))
 

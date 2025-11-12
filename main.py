@@ -102,6 +102,11 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
         exp1 = exp.replace(hour=8, minute=0, second=0, microsecond=0) + timedelta(days=1)
         dia = exp1.day
         mes = exp1.month
+        if not (horarios(exp)):
+            return({
+                "estado": False,
+                "mensaje": "No se puede votar, fuera de horario"
+            })
 
         if(votante_id):
             return({
@@ -110,12 +115,12 @@ async def votar(stand_id, response:Response, votante_id:str=Cookie(None)):
             "ya_voto": True
             })
 
-        """expires=exp1"""  """y reemplazarlo por age"""
+        """"""  """y reemplazarlo por age"""
         response.set_cookie(
             key="votante_id",
             value=str(uuid.uuid4()),
             httponly=True,
-            max_age=60,
+            expires=exp1,
             path="/",
             samesite="none",
             secure=True       
