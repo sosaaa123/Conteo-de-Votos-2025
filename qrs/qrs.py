@@ -2,9 +2,9 @@ import os
 from dotenv import load_dotenv
 import qrcode
 from conexion import Conexion
-url="https://front-votos.vercel.app/stand/148"
+url="https://front-votos.vercel.app/stand/153"
 img = qrcode.make(url)
-img.save("pourtau.png")
+img.save("dioses.png")
 load_dotenv()
 var = os.getenv("DATABASE_URL")
 
