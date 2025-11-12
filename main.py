@@ -23,7 +23,7 @@ arg = pytz.timezone('America/Argentina/Buenos_Aires')
 
 cur = conexion.cursor()
 
-origenes = ["http://localhost:5173", "https://front-votos.vercel.app", "https://dashboard-votos-l9me.vercel.app/"]
+origenes = ["http://localhost:5173", "https://front-votos.vercel.app", "https://dashboard-votos-l9me.vercel.app"]
 
 app = FastAPI()
 
